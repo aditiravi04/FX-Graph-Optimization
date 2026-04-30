@@ -1,0 +1,2 @@
+Model,Eager_ms,Fused_ms,Speedup
+ResNet18,17.222,16.96,1.02
