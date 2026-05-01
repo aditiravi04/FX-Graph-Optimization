@@ -3,19 +3,16 @@
 This project implements a simplified version of the PyTorch 2 compiler pipeline, with a focus on dynamic graph capture, operator fusion, and low-level C++ backend execution. It aims to overcome the limitations of standard eager execution by identifying and optimizing common computation patterns, thereby reducing redundant computation and memory traffic.
 
 **Core Features**
+
 The system includes the following key components:
 
-**Graph Capture**
-A lightweight analogue of TorchDynamo built using torch.fx.symbolic_trace, which converts PyTorch models into a structured Intermediate Representation (IR). This enables static analysis and transformation of dynamic models.
+- **Graph Capture:** A lightweight analogue of TorchDynamo built using torch.fx.symbolic_trace, which converts PyTorch models into a structured Intermediate Representation (IR). This enables static analysis and transformation of dynamic models.
 
-**Optimization Pass**
-A graph-level peephole optimization pass that performs pattern matching on the FX graph. In particular, it identifies and fuses common operator sequences such as Linear + ReLU, reducing intermediate memory writes and improving execution efficiency.
+- **Optimization Pass:** A graph-level peephole optimization pass that performs pattern matching on the FX graph. In particular, it identifies and fuses common operator sequences such as Linear + ReLU, reducing intermediate memory writes and improving execution efficiency.
 
-**C++ Backend Lowering**
-A custom execution backend that translates the optimized FX graph into parallelized C++ code using OpenMP. This bypasses the Python interpreter during execution and enables significantly faster runtime performance.
+- **C++ Backend Lowering:** A custom execution backend that translates the optimized FX graph into parallelized C++ code using OpenMP. This bypasses the Python interpreter during execution and enables significantly faster runtime performance.
 
-**Wrapper Code Generation**
-A ctypes-based interface that automatically generates the necessary glue code to invoke compiled C++ kernels directly from Python, allowing seamless integration with existing PyTorch workflows.
+- **Wrapper Code Generation:** A ctypes-based interface that automatically generates the necessary glue code to invoke compiled C++ kernels directly from Python, allowing seamless integration with existing PyTorch workflows.
 
 **Project Structure**
 - fused_op_pass.py: Implements the graph-level fusion pass, including pattern detection and operator fusion logic.
