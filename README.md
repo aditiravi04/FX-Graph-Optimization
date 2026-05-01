@@ -23,25 +23,26 @@ The system includes the following key components:
 **How to Run**
 1. Visualize the Graph IR
 
-To inspect the intermediate representation used by the compiler before lowering to C++, run:
-python visualize_graphs.py
-
-Expected Output:
-figure1_graph_structure.png: A structured visualization of the FX graph showing operations, targets, and data flow.
-fused_graph_structure.txt: A textual representation of the optimized graph after fusion passes.
+  To inspect the intermediate representation used by the compiler before lowering to C++, run:
+  python visualize_graphs.py
+  
+  Expected Output:
+  figure1_graph_structure.png: A structured visualization of the FX graph showing operations, targets, and data flow.
+  fused_graph_structure.txt: A textual representation of the optimized graph after fusion passes.
 
 2. Benchmark and Verify Correctness
-
-To evaluate performance improvements and verify numerical correctness, run:
-python verify.py
-
-Expected Output:
-Numerical Accuracy Check: Confirms that compiled outputs match eager execution using torch.allclose.
-Performance Metrics: Reports average latency across eager mode, Python-level fusion, and the C++ backend (with warm-up and repeated trials).
-final_performance_report.png: A bar chart showing relative speedups, typically achieving ~1.64× improvement in the C++ backend.
-scaling_comparison.png: A visualization demonstrating how performance benefits scale from small MLPs to larger architectures such as ResNet-18.
+  
+  To evaluate performance improvements and verify numerical correctness, run:
+  python verify.py
+  
+  Expected Output:
+  Numerical Accuracy Check: Confirms that compiled outputs match eager execution using torch.allclose.
+  Performance Metrics: Reports average latency across eager mode, Python-level fusion, and the C++ backend (with warm-up and repeated trials).
+  final_performance_report.png: A bar chart showing relative speedups, typically achieving ~1.64× improvement in the C++ backend.
+  scaling_comparison.png: A visualization demonstrating how performance benefits scale from small MLPs to larger architectures such as ResNet-18.
 
 **Key Results**
+
 *Memory Traffic Reduction*
 By fusing operations such as Linear and ReLU, the system eliminates intermediate memory writes and reads between layers, significantly reducing memory bandwidth overhead.
 
